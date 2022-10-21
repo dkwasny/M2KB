@@ -103,9 +103,11 @@ void CALLBACK MICallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
                 /* input.ki.wScan = 0; */
                 input.ki.time = 0;
                 input.ki.dwExtraInfo = 0;
-                input.ki.wVk = keymap[+cmkc];
-                input.ki.wScan = MapVirtualKey(input.ki.wVk, MAPVK_VK_TO_VSC);
+                /* input.ki.wVk = keymap[+cmkc]; */
+                input.ki.wVk = 0;
+                /* input.ki.wScan = MapVirtualKey(input.ki.wVk, MAPVK_VK_TO_VSC); */
                 /* input.ki.dwFlags = cmkp ? 0 : KEYEVENTF_KEYUP; */
+                input.ki.wScan = MapVirtualKey(keymap[+cmkc], MAPVK_VK_TO_VSC);
                 input.ki.dwFlags = cmkp ? KEYEVENTF_SCANCODE : KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 
                 SendInput(1, &input, sizeof(INPUT));
